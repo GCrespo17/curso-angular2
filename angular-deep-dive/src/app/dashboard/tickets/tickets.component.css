@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    flex-shrink: none;
   }
   
   :host ul {
@@ -29,5 +30,6 @@
   @media (min-width: 768px) {
     :host {
       flex-direction: row;
+      flex-shrink: none;
     }
   }
