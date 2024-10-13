@@ -1,4 +1,4 @@
-import { Component, ElementRef, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, output, viewChild, ViewChild } from '@angular/core';
 import { ButtonComponent } from '../../../shared/button/button.component';
 import { ControlComponent } from "../../../shared/control/control.component";
 import { FormsModule } from '@angular/forms';
@@ -10,21 +10,29 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './new-ticket.component.html',
   styleUrl: './new-ticket.component.css'
 })
-export class NewTicketComponent {
+export class NewTicketComponent implements AfterViewInit{
   //Me ayuda a encontrar elementos hijos en la vista de l componente
-  //Esto es para usar el elemto template de forma global
+  //Esto es para usar el elemto template de forma global, con ngOnInit estaria indefinido la forma
   // @ViewChild('form') form?: ElementRef<HTMLFormElement>; 
   ////////////////////////////////////////
   //La forma de usarlo como signal es la siguiente
-  private form = viewChild<ElementRef<HTMLFormElement>>('form');
+  private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
+
+  //Usaremos signals en vez de @Output decorador
+  add = output<{title: string; text: string}>();
+
+  ngAfterViewInit(): void {
+    //El objetivo es garantizar que tendre acceso al elemento que seleccione con viewChild
+    console.log("AFTER VIEW INIT");
+    console.log(this.form().nativeElement)
+  }
 
   //Esto es una alternativa a two way binding
   onSubmit(title: string, ticketText: string){
-    console.log(title);
-    console.log(ticketText);
+    this.add.emit({title: title, text: ticketText});
     // this.form?.nativeElement.reset();
     /////////////////
     //Como signal:
-    this.form.855555555555555558888888
+    this.form().nativeElement.reset();
   }
 }
