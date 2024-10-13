@@ -1,4 +1,6 @@
 #rect {
   background-color: red;
   border-radius: 2px;
+  border: 1px solid black;
+  box-sizing: border-box;
 }
