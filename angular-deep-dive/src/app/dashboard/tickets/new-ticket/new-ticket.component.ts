@@ -18,6 +18,8 @@ export class NewTicketComponent implements AfterViewInit{
   //La forma de usarlo como signal es la siguiente
   private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
 
+  enteredTitle="";
+  enteredText="";
   //Usaremos signals en vez de @Output decorador
   add = output<{title: string; text: string}>();
 
@@ -27,12 +29,18 @@ export class NewTicketComponent implements AfterViewInit{
     console.log(this.form().nativeElement)
   }
 
-  //Esto es una alternativa a two way binding
-  onSubmit(title: string, ticketText: string){
-    this.add.emit({title: title, text: ticketText});
-    // this.form?.nativeElement.reset();
-    /////////////////
-    //Como signal:
-    this.form().nativeElement.reset();
+  // //Esto es una alternativa a two way binding, templates
+  // onSubmit(title: string, ticketText: string){
+  //   this.add.emit({title: title, text: ticketText});
+  //   // this.form?.nativeElement.reset();
+  //   /////////////////
+  //   //Como signal:
+  //   this.form().nativeElement.reset();
+  // }
+
+  onSubmit(){
+    this.add.emit({title: this.enteredTitle, text: this.enteredText});
+    this.enteredText="";
+    this.enteredTitle="";
   }
 }
