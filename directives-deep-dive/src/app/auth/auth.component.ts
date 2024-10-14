@@ -14,7 +14,7 @@ export class AuthComponent {
   email = signal('');
   password = signal('');
   private authService = inject(AuthService);
-
+  
   onSubmit() {
     this.authService.authenticate(this.email(), this.password());
   }
