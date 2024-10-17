@@ -6,6 +6,7 @@ import { Place } from './place.model';
   providedIn: 'root',
 })
 export class PlacesService {
+
   private userPlaces = signal<Place[]>([]);
 
   loadedUserPlaces = this.userPlaces.asReadonly();
@@ -17,4 +18,9 @@ export class PlacesService {
   addPlaceToUserPlaces(place: Place) {}
 
   removeUserPlace(place: Place) {}
+
+  // private fetchPlaces(){
+  //   this.httpClient.get<{places: Place[] }>('http://localhost:3000/user-places');
+  // }
+
 }
